@@ -58,7 +58,7 @@ test_hdf = {}   # Read individual 3D elements into dictionary
 i = 0.001       # Known stat value for 4D keys
 while i <= 0.101:
     test_hdf[str(i)] = pd.read_hdf(h5file_name, key=str(i))     # Read in the 3D data files to the dict with key i
-    i += 0.001
+    i += 0.001      # Known specific increment for this data set
 test_hdf_4D_Panel = pd.Panel4D(data=test_hdf)       # Convert that dictionary to a true Pandas 4D panel
 
 # print test_hdf_4D_Panel
@@ -74,5 +74,8 @@ Panels, HDF5, Multi-dimensional Data structures
         -pandas can read and write to HDF5
         -On the fly compression
             -200GB of Light curve data to 50GB of compressed data
+        -Easiest way I have found to store 4D data for latter use
+            -Easy to use 4D data within program
+            -Hard to store it and access it in another program latter
 
 """
