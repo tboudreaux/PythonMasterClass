@@ -33,3 +33,46 @@ Good for different things:
     - Will only read in numbers by default
         -reads into a standard list not the more complicated DataFrame
 """
+
+"""
+Disadvantages for each:
+    Manual:
+        - Manual Requires more work and generally a slightly different approach for each data set
+        - Sometimes it can be hard to query data as you have to rely on indexes
+        - If you have colunm-wise data as opposed to row-wise data a more complicated read in or a reshape is required
+    Pandas:
+        - Dataframes use a different indexing scheme (loc, iloc as opposed to []) which can make them unwieldly
+        - Take up slightly more memory in a raw form
+        - When generating or moving dataframes around index colums can get messed up and confusing
+    Numpy:
+        - Does not read in string data by default
+        - similar problems to 2 and 3 for Manual
+
+"""
+
+# HDF5 DATA FORMAT
+
+# N.B Database.h5 is a 4 dimensional data object and therefor requires much more complex read in scheme
+
+test_hdf = {}   # Read individual 3D elements into dictionary
+i = 0.001       # Known stat value for 4D keys
+while i <= 0.101:
+    test_hdf[str(i)] = pd.read_hdf(h5file_name, key=str(i))     # Read in the 3D data files to the dict with key i
+    i += 0.001
+test_hdf_4D_Panel = pd.Panel4D(data=test_hdf)       # Convert that dictionary to a true Pandas 4D panel
+
+# print test_hdf_4D_Panel
+
+"""
+Panels, HDF5, Multi-dimensional Data structures
+
+    Panels are a 3, 4 and higher dimensional data structures based around dataframes
+        - a 3d panel = stack of data frames, 4D panel = stack of 3D panels
+
+    HDF5
+        -Binary data structure able to store data objects
+        -pandas can read and write to HDF5
+        -On the fly compression
+            -200GB of Light curve data to 50GB of compressed data
+
+"""
