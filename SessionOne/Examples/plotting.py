@@ -42,16 +42,14 @@ def toggle_data(event):
 
 
 def onclick(event):
-    global ax, a, Spec, data_state
-    print 'Position:', event.x, event.y
+    global ax, a, Spec, data_state, b
     if data_state is True:
-        delta_nearest_data = (min([abs(event.xdata-i) for i in Spec['freq']]),
-                              min([abs(event.ydata-i) for i in Spec['amp']*ApInc.val]))
-        print delta_nearest_data
-        nearest_data = (delta_nearest_data[0] + event.xdata, delta_nearest_data[1] + event.ydata)
-        print nearest_data
-        ax.plot([nearest_data[0]], [nearest_data[1]], 'D')
-        plt.draw()
+        if b is None:
+            b, = ax.plot([event.xdata], [event.ydata], 'D')
+        else:
+            b.set_ydata([event.ydata])
+            b.set_xdata([event.xdata])
+    plt.draw()
 
 spectrum1_name = '../Data/testspectrum.tsv'     # Path name to data
 
@@ -63,7 +61,7 @@ Spec['freq'] = [x * 1*10**6 for x in Spec['freq']]  # convert units o Hz to micr
 fig = plt.figure(figsize=(10, 7))       # Define a figure of a fixed size (inches theoretically)
 
 ax = fig.add_subplot(111)       # add axes (what you draw your plot on) to the figure
-a, = ax.plot(Spec['freq'], Spec['amp'], label='Data')       # Plot data
+a, = ax.plot(Spec['freq'], Spec['amp'], 'o-',  label='Data')       # Plot data
 ax.legend()     # toggle legend on
 ax.grid()       # toggle grid lines on
 ax.axvline(x=8200, linestyle='-.', color='r')       # add a vertical line at specified x
@@ -84,6 +82,10 @@ bToggle.on_clicked(toggle_data)   # when slider changes call update_plot functio
 ax.set_xlabel('Frequency (' + u'\u00B5' + 'Hz)')    # x label including unicode character
 ax.set_ylabel('Amplitude')
 ax.set_title('FT of some GALEX target')
+
+ax.fill_between(Spec['freq'], 0, Spec['amp']*ApInc.val)
+
+b = None
 
 cid = fig.canvas.mpl_connect('button_press_event', onclick)
 
