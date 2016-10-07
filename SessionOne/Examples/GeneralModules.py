@@ -24,24 +24,24 @@ def os_show():
         I will focus on UNIX os commands however they are relatively similar in windows
     """
 
-    print Fore.RED + '###############' + Style.RESET_ALL
-    print Fore.GREEN + 'Bottom Up:' + Style.RESET_ALL
+    print Fore.RED + '###############' + Fore.RESET
+    print Fore.GREEN + 'Bottom Up:' + Fore.RESET
     print Fore.CYAN
     for root, dirs, files in os.walk('..', topdown=False):
         print 'In Directory: ', root
         print 'With the Subdirectories: ', dirs
         print 'with the files: ', files
-    print Style.RESET_ALL
-    print Fore.RED + '###############' + Style.RESET_ALL
+    print Fore.RESET
+    print Fore.RED + '###############' + Fore.RESET
 
-    print Fore.GREEN + 'Top Down' + Style.RESET_ALL
+    print Fore.GREEN + 'Top Down' + Fore.RESET
     print Fore.CYAN
     for root_2, dirs_2, files_2 in os.walk('..', topdown=True):
         print 'In Directory: ', root_2
         print 'With the Subdirectories: ', dirs_2
         print 'with the files: ', files_2
-    print Style.RESET_ALL
-    print Fore.RED + '###############' + Style.RESET_ALL
+    print Fore.RESET
+    print Fore.RED + '###############' + Fore.RESET
 
 
 def tqdm_show():
@@ -51,10 +51,11 @@ def tqdm_show():
     """
 
     a = [r.randint(0, 9999999) for i in range(10000)]
-    print 'UNSORTED:', a
+    # print 'UNSORTED:', a
     smallest = a[0]
     smallest_index = 0
     b = []
+    print 'Sorting: '
     for k in tqdm(range(len(a))):
         for index, element in enumerate(a):
             if element < smallest:
@@ -65,19 +66,26 @@ def tqdm_show():
         if len(a) > 0:
             smallest = a[0]
             smallest_index = 0
-    print 'SORTED:', b
+    print 'Sorted!'
+    # print 'SORTED:', b
 
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Command Line arguments to pass into program')
-    parser.add_argument('Module', matavar="Module to demonstrate use of", type=str, nargs=1,
+    parser.add_argument('Module', metavar="Module to demonstrate use of", type=str, nargs=1,
                         help="User spesified which function to test in this program")
     parser.add_argument('-bac', action='store_true', help='set a univesal background color for all printed text')
     parser.add_argument('-n', metavar='number of runs', type=int, default=[1], nargs=1,
                         help="how many times to run selected function")
     args = parser.parse_args()
 
-    if args.Module[0] == 'o':
-        os_show()
-    elif args.Module[0] == 't':
-        tqdm_show()
+    if args.bac is True:
+        print Back.LIGHTMAGENTA_EX
+
+    for i in range(args.n[0]):
+        if args.Module[0] == 'o':
+            os_show()
+        elif args.Module[0] == 't':
+            tqdm_show()
+
+    print Style.RESET_ALL
