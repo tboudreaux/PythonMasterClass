@@ -5,7 +5,7 @@ import numpy as np      # Numpy - adds mathematically operations and some new da
 # Define file path to date
 sdBCat1_name = '../Data/sdBCatalouge.csv'
 sdBCat2_name = '../Data/LessDetailedCatalouge.csv'
-spectrum1_name = '../Data/testspectrum.csv'
+spectrum1_name = '../Data/testspectrum.tsv'
 h5file_name = '../Data/Database.h5'
 
 # Reading in sdBCat2 without pandas
