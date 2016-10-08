@@ -57,6 +57,8 @@ def os_show():
     print Fore.RED + '###############' + Fore.RESET
     cont = False
     change = False
+
+    # General Y/N menu
     while cont is False:
         make_change = raw_input('Would you like to duplicate the entire file structure of this session [y/n]: ')
 
@@ -68,6 +70,7 @@ def os_show():
         else:
             print 'Please enter either yes or no'
 
+    # If user wants to copy the file structure
     if change is True:
         for root_3, dirs_3, files_3 in os.walk('..'):
             for dir in dirs_3:
