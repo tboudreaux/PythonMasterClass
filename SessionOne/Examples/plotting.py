@@ -132,6 +132,8 @@ def on_press(event):    # preform some action on a key press
     key = event.key     # get the key press
     if key == 'escape':
         exit()  # close program if escape pressed
+    elif key.upper() == 'T':
+        toggle_all(1)
 
 spectrum1_name = '../Data/testspectrum.tsv'     # Path name to data
 
