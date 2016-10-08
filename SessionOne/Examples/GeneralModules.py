@@ -70,10 +70,17 @@ def os_show():
 
     if change is True:
         for root_3, dirs_3, files_3 in os.walk('..'):
-            for i in dirs_3:
-                if os.path.isdir('../../' + i):
-                    shutil.rmtree('../../' + i)
-                os.mkdir('../../' + i)
+            for dir in dirs_3:
+                if os.path.isdir('../' + root_3 + '/' + dir):
+                    shutil.rmtree('../' + root_3 + '/' + dir)     # If the folder already exists remove it
+                print 'Makign Directory: ' + '../' + root_3 + '/' + dir
+                os.mkdir('../' + root_3 + '/' + dir)      # Build the directory structure
+            for file in files_3:
+                if os.path.exists('../' + root_3 + '/' + file):
+                    os.remove('../' + root_3 + '/' + file)     # if the file exists remove it
+                print 'Copying File: ' + '../' + root_3 + '/' + file
+                shutil.copy(root_3 + '/' + file, '../' + root_3 + '/' + file)     # move the files
+
 
 def tqdm_show():
     """
