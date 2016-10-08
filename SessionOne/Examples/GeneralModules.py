@@ -66,6 +66,7 @@ def os_show():
             cont = True
             change = True
         elif make_change.upper()[0] == 'N':
+            cont = True
             change = False
         else:
             print 'Please enter either yes or no'
