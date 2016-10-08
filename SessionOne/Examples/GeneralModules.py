@@ -1,5 +1,5 @@
-# This will likely not run on your local machine as there are many non default conda modules -- installation
-#   instructions for all are at the bottom of the function
+# This will likely not run on your local machine as there are some non default conda modules -- installation
+#   instructions for all are at the bottom of the file
 
 try:        # Import error handling, more advanced usage can be done with scripted pip commands
     import numpy as np
@@ -147,3 +147,7 @@ if __name__=='__main__':
             sys_show()
 
     print Style.RESET_ALL
+
+
+# Install tqdm
+# "pip install tqdm"
